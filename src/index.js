@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import { TTTBoard, switchPlayer, playGame } from "./board";
 
 const Square = (props) => {
   return (
@@ -87,6 +88,9 @@ class Game extends React.Component {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
+    const board = new TTTBoard(3);
+    console.log(board.toString());
+
     let status;
     if (winner) {
       status = "Winner: " + winner;
