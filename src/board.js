@@ -2,13 +2,13 @@
   Provided Code for Tic-Tac-Toe
 */
 
-import { has } from 'lodash-es';
+import { has } from "lodash-es";
 
 // Constants
-const empty = 1;
-const playerX = 2;
-const playerO = 3;
-const draw = 4;
+export const empty = 1;
+export const playerX = 2;
+export const playerO = 3;
+export const draw = 4;
 
 // Map player constants to letters for printing
 const strMap = {
