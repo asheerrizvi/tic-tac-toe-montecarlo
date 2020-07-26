@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
+import { TTTBoard, playerO, numMap } from "./board";
+import mcMove from "./monteCarlo";
+
 const Square = (props) => {
   return (
     <button className='square' onClick={props.onClick}>
@@ -57,6 +60,19 @@ class Game extends React.Component {
     };
   }
 
+  makeComputerMove(squares) {
+    const board = squares.reduce(
+      (rows, key, index) =>
+        (index % 3 === 0
+          ? rows.push([numMap[key]])
+          : rows[rows.length - 1].push(numMap[key])) && rows,
+      []
+    );
+    const tttBoard = new TTTBoard(3, board);
+    const bestMove = mcMove(tttBoard, playerO, 1000);
+    squares[bestMove] = "O";
+  }
+
   handleClick(i) {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
@@ -64,7 +80,8 @@ class Game extends React.Component {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = this.state.xIsNext ? "X" : "O";
+    squares[i] = "X";
+    this.makeComputerMove(squares);
     this.setState({
       history: history.concat([
         {

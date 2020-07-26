@@ -2,7 +2,7 @@
   Provided Code for Tic-Tac-Toe
 */
 
-import { has } from "lodash-es";
+import has from "lodash-es";
 
 // Constants
 export const empty = 1;
@@ -17,6 +17,12 @@ const strMap = {
   3: "O",
 };
 
+export const numMap = {
+  null: 1,
+  X: 2,
+  O: 3,
+};
+
 export class TTTBoard {
   // Class to represent a Tic-Tac-Toe Board.
   constructor(dim, board = null) {
@@ -24,10 +30,16 @@ export class TTTBoard {
       Initialize the TTTBoard object with the given dimension.
     */
     this.dim = dim;
-    this.board =
-      board !== null
-        ? (this.board = Array.from(board))
-        : Array(3).fill(Array(3).fill(empty));
+    if (board !== null) {
+      this.board = board;
+    } else {
+      this.board = [
+        [empty, empty, empty],
+        [empty, empty, empty],
+        [empty, empty, empty],
+      ];
+    }
+    // this.board = board !== null ? board : Array(3).fill(Array(3).fill(empty));
   }
 
   toString() {
@@ -148,7 +160,7 @@ export class TTTBoard {
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (
-        board[a[0]][a[1]] &&
+        board[a[0]][a[1]] !== 1 &&
         board[a[0]][a[1]] === board[b[0]][b[1]] &&
         board[a[0]][a[1]] === board[c[0]][c[1]]
       ) {
@@ -190,13 +202,13 @@ export const playGame = (mcMoveFunction, ntrials) => {
     currentPlayer = switchPlayer(currentPlayer);
 
     // Display board
-    console.log(board);
-    console.log("========================");
+    // console.log(board);
+    // console.log("========================");
   }
 
   // Print winner
-  if (winner === playerX) console.log("X Wins!");
-  else if (winner === playerO) console.log("O Wins!");
-  else if (winner === draw) console.log("Tie!");
-  else console.log("Error: Unknown number!");
+  // if (winner === playerX) console.log("X Wins!");
+  // else if (winner === playerO) console.log("O Wins!");
+  // else if (winner === draw) console.log("Tie!");
+  // else console.log("Error: Unknown number!");
 };
