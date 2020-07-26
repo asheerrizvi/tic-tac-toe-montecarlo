@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
 
-import { TTTBoard, playerO, numMap } from "./board";
-import mcMove from "./monteCarlo";
+import { TTTBoard } from './board';
+import mcMove from './monteCarlo';
 
 const Square = (props) => {
   return (
@@ -61,16 +61,9 @@ class Game extends React.Component {
   }
 
   makeComputerMove(squares) {
-    const board = squares.reduce(
-      (rows, key, index) =>
-        (index % 3 === 0
-          ? rows.push([numMap[key]])
-          : rows[rows.length - 1].push(numMap[key])) && rows,
-      []
-    );
-    const tttBoard = new TTTBoard(3, board);
-    const bestMove = mcMove(tttBoard, playerO, 1000);
-    squares[bestMove] = "O";
+    const tttBoard = new TTTBoard(3, squares);
+    const bestMove = mcMove(tttBoard, 'O', 100);
+    squares[bestMove] = 'O';
   }
 
   handleClick(i) {
@@ -80,7 +73,7 @@ class Game extends React.Component {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = "X";
+    squares[i] = 'X';
     this.makeComputerMove(squares);
     this.setState({
       history: history.concat([
@@ -107,13 +100,13 @@ class Game extends React.Component {
 
     let status;
     if (winner) {
-      status = "Winner: " + winner;
+      status = 'Winner: ' + winner;
     } else {
-      status = "Next player: " + (this.state.xIsNext ? "X" : "O");
+      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
 
     const moves = history.map((step, move) => {
-      const desc = move ? "Go to move #" + move : "Go to game start";
+      const desc = move ? 'Go to move #' + move : 'Go to game start';
       return (
         <li key={move}>
           <button onClick={() => this.jumpTo(move)}>{desc}</button>
@@ -140,7 +133,7 @@ class Game extends React.Component {
 
 // ========================================
 
-ReactDOM.render(<Game />, document.getElementById("root"));
+ReactDOM.render(<Game />, document.getElementById('root'));
 
 function calculateWinner(squares) {
   const lines = [

@@ -2,26 +2,10 @@
   Provided Code for Tic-Tac-Toe
 */
 
-import has from "lodash-es";
+import has from 'lodash-es';
 
 // Constants
-export const empty = 1;
-export const playerX = 2;
-export const playerO = 3;
 export const draw = 4;
-
-// Map player constants to letters for printing
-const strMap = {
-  1: " ",
-  2: "X",
-  3: "O",
-};
-
-export const numMap = {
-  null: 1,
-  X: 2,
-  O: 3,
-};
 
 export class TTTBoard {
   // Class to represent a Tic-Tac-Toe Board.
@@ -30,33 +14,22 @@ export class TTTBoard {
       Initialize the TTTBoard object with the given dimension.
     */
     this.dim = dim;
-    if (board !== null) {
-      this.board = board;
-    } else {
-      this.board = [
-        [empty, empty, empty],
-        [empty, empty, empty],
-        [empty, empty, empty],
-      ];
-    }
-    // this.board = board !== null ? board : Array(3).fill(Array(3).fill(empty));
+    this.board = board !== null ? board : Array(this.dim ** 2).fill(null);
   }
 
   toString() {
-    let rep = "";
-    for (let i = 0; i < this.dim; i++) {
-      for (let j = 0; j < this.dim; j++) {
-        let charAtPosition = this.board[i][j];
-        rep += strMap[charAtPosition];
-        if (j === this.dim - 1) {
-          rep += "\n";
-        } else {
-          rep += " | ";
-        }
-      }
-      if (i !== this.dim - 1) {
-        rep += "----------";
-        rep += "\n";
+    let rep = '';
+    let count = 0;
+    for (let i = 0; i < this.dim ** 2; i++) {
+      rep += this.board[i] ? this.board[i] : ' ';
+      if (count === 2) {
+        count = 0;
+        rep += '\n';
+        if (i !== this.dim ** 2 - 1) rep += '---------';
+        rep += '\n';
+      } else {
+        rep += ' | ';
+        count++;
       }
     }
     return rep;
@@ -72,36 +45,32 @@ export class TTTBoard {
     return [...this.board];
   }
 
-  square(row, col) {
+  square(index) {
     /*
       Returns one of the three constants EMPTY, PLAYERX or PLAYERO
       that correspond to the contents of the board at position (row, col).
     */
-    return this.board[row][col];
+    return this.board[index];
   }
 
   getEmptySquares() {
     // Return a list of (row, col) tuples for all empty squares
     const emptySquares = [];
-    for (let i = 0; i < this.dim; i++) {
-      for (let j = 0; j < this.dim; j++) {
-        if (this.board[i][j] === empty) {
-          emptySquares.push([i, j]);
-        }
+    for (let i = 0; i < this.dim ** 2; i++) {
+      if (this.board[i] === null) {
+        emptySquares.push(i);
       }
     }
     return emptySquares;
   }
 
-  move(row, col, player) {
+  move(index, player) {
     /*
       Place player on the board at position (row, col).
       player should be either the constant PLAYERX or PLAYERO.
       Does nothing if board square is not empty.
     */
-    if (this.board[row][col] === empty) {
-      this.board[row][col] = player;
-    }
+    if (this.board[index] === null) this.board[index] = player;
   }
 
   checkWin() {
@@ -114,57 +83,19 @@ export class TTTBoard {
     */
     const board = this.board;
     const lines = [
-      [
-        [0, 0],
-        [0, 1],
-        [0, 2],
-      ],
-      [
-        [1, 0],
-        [1, 1],
-        [1, 2],
-      ],
-      [
-        [2, 0],
-        [2, 1],
-        [2, 2],
-      ],
-      [
-        [0, 0],
-        [1, 0],
-        [2, 0],
-      ],
-      [
-        [0, 1],
-        [1, 1],
-        [2, 1],
-      ],
-      [
-        [0, 2],
-        [1, 2],
-        [2, 2],
-      ],
-      [
-        [0, 0],
-        [1, 1],
-        [2, 2],
-      ],
-      [
-        [0, 2],
-        [1, 1],
-        [2, 0],
-      ],
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
     ];
-
-    // Check all the lines.
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
-      if (
-        board[a[0]][a[1]] !== 1 &&
-        board[a[0]][a[1]] === board[b[0]][b[1]] &&
-        board[a[0]][a[1]] === board[c[0]][c[1]]
-      ) {
-        return board[a[0]][a[1]];
+      if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+        return board[a];
       }
     }
 
@@ -181,21 +112,20 @@ export class TTTBoard {
   Convenience function to switch players.
   Returns other player.
 */
-export const switchPlayer = (player) =>
-  player === playerX ? playerO : playerX;
+export const switchPlayer = (player) => (player === 'X' ? 'O' : 'X');
 
 // Function to play a game with two MC players.
 export const playGame = (mcMoveFunction, ntrials) => {
   // Setup game
   const board = new TTTBoard(3);
-  let currentPlayer = playerX;
+  let currentPlayer = 'X';
   let winner = null;
 
   // Run a game
   while (winner === null) {
     // Move
-    const [row, col] = mcMoveFunction(board, currentPlayer, ntrials);
-    board.move(row, col, currentPlayer);
+    const [index] = mcMoveFunction(board, currentPlayer, ntrials);
+    board.move(index, currentPlayer);
 
     // Update state
     winner = board.checkWin();
