@@ -4,9 +4,6 @@
 
 import has from 'lodash-es';
 
-// Constants
-export const draw = 4;
-
 export class TTTBoard {
   // Class to represent a Tic-Tac-Toe Board.
   constructor(dim, board = null) {
@@ -100,7 +97,7 @@ export class TTTBoard {
     }
 
     // Game is either a draw or still in progress.
-    return this.getEmptySquares().length === 0 ? draw : null;
+    return this.getEmptySquares().length === 0 ? 'Draw' : null;
   }
 
   clone() {

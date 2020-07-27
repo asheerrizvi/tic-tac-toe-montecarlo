@@ -2,7 +2,7 @@
   Monte Carlo Tic-Tac-Toe Player
 */
 
-import { switchPlayer, draw } from './board';
+import { switchPlayer } from './board';
 
 const scoreCurrent = 2;
 const scoreOther = 1;
@@ -22,7 +22,7 @@ const mcTrial = (board, player) => {
 const mcUpdateScores = (scores, board, player) => {
   // Update the scores grid based on the board and player.
   const finalState = board.checkWin();
-  if (finalState === draw) {
+  if (finalState === 'Draw') {
     for (let i = 0; i < board.getDim() ** 2; i++) {
       scores[i] += 0;
     }
