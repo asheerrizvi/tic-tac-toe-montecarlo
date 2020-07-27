@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
 
-import { TTTBoard } from './board';
-import mcMove from './monteCarlo';
+import { TTTBoard } from "./board";
+import mcMove from "./monteCarlo";
 
 const Square = (props) => {
   return (
@@ -75,7 +75,7 @@ class Game extends React.Component {
   }
 
   getMachineMove(squares) {
-    const machinePlayer = this.state.xIsUser ? 'O' : 'X';
+    const machinePlayer = this.state.xIsUser ? "O" : "X";
     const tttBoard = new TTTBoard(3, squares);
     const bestMove = mcMove(tttBoard, machinePlayer, 100);
     squares[bestMove] = machinePlayer;
@@ -89,7 +89,7 @@ class Game extends React.Component {
       return;
     }
 
-    squares[i] = this.state.xIsUser ? 'X' : 'O';
+    squares[i] = this.state.xIsUser ? "X" : "O";
     this.getMachineMove(squares);
     this.updateHistory(history, squares, !!this.state.xIsNext);
   }
@@ -102,7 +102,7 @@ class Game extends React.Component {
   }
 
   changeUser(event) {
-    const xIsUser = event.target.value === 'X' ? true : false;
+    const xIsUser = event.target.value === "X" ? true : false;
     this.setState({ xIsUser: xIsUser });
   }
 
@@ -124,19 +124,21 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    let status = 'Game Status: In Progress...';
+    let status = "Game Status: In Progress...";
     if (winner) {
       status =
-        winner === 'Draw'
-          ? 'Game Status: ' + winner
-          : 'Game Status: ' + winner + ' wins!';
+        winner === "Draw"
+          ? "Game Status: " + winner
+          : "Game Status: " + winner + " wins!";
     }
 
     const moves = history.map((step, move) => {
-      const desc = move ? 'Go to move #' + move : 'Go to game start';
+      const desc = move ? "Go to move #" + move : "Go to game start";
       return (
-        <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+        <li key={move} className='history-item'>
+          <button className='history-button' onClick={() => this.jumpTo(move)}>
+            {desc}
+          </button>
         </li>
       );
     });
@@ -148,6 +150,7 @@ class Game extends React.Component {
             <label>
               Want to play as 'X' or 'O'?
               <select
+                className='player-selector'
                 value={this.state.user}
                 onChange={(event) => this.changeUser(event)}
               >
@@ -155,7 +158,7 @@ class Game extends React.Component {
                 <option value='O'>O</option>
               </select>
             </label>
-            <input type='submit' value='Begin Game' />
+            <input className='game-button' type='submit' value='Begin Game' />
           </form>
         </div>
         <div className='game-board'>
@@ -175,7 +178,7 @@ class Game extends React.Component {
 
 // ========================================
 
-ReactDOM.render(<Game />, document.getElementById('root'));
+ReactDOM.render(<Game />, document.getElementById("root"));
 
 function calculateWinner(squares) {
   const tttBoard = new TTTBoard(3, squares);
