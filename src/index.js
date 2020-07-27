@@ -57,24 +57,11 @@ class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
+      xIsUser: true,
     };
   }
 
-  makeComputerMove(squares) {
-    const tttBoard = new TTTBoard(3, squares);
-    const bestMove = mcMove(tttBoard, 'O', 100);
-    squares[bestMove] = 'O';
-  }
-
-  handleClick(i) {
-    const history = this.state.history.slice(0, this.state.stepNumber + 1);
-    const current = history[history.length - 1];
-    const squares = current.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
-      return;
-    }
-    squares[i] = 'X';
-    this.makeComputerMove(squares);
+  updateHistory(history, squares) {
     this.setState({
       history: history.concat([
         {
@@ -86,11 +73,48 @@ class Game extends React.Component {
     });
   }
 
+  getMachineMove(squares) {
+    const machinePlayer = this.state.xIsUser ? 'O' : 'X';
+    const tttBoard = new TTTBoard(3, squares);
+    const bestMove = mcMove(tttBoard, machinePlayer, 100);
+    squares[bestMove] = machinePlayer;
+  }
+
+  handleClick(i) {
+    const history = this.state.history.slice(0, this.state.stepNumber + 1);
+    const current = history[history.length - 1];
+    const squares = current.squares.slice();
+    if (calculateWinner(squares) || squares[i]) {
+      return;
+    }
+
+    squares[i] = this.state.xIsUser ? 'X' : 'O';
+    this.getMachineMove(squares);
+    this.updateHistory(history, squares);
+  }
+
   jumpTo(step) {
     this.setState({
       stepNumber: step,
       xIsNext: step % 2 === 0,
     });
+  }
+
+  changeUser(event) {
+    const xIsUser = event.target.value === 'X' ? true : false;
+    this.setState({ xIsUser: xIsUser });
+  }
+
+  beginGame(event) {
+    event.preventDefault();
+    if (!this.state.xIsUser) {
+      const history = this.state.history.slice(0, this.state.stepNumber + 1);
+      const current = history[history.length - 1];
+      const squares = current.squares.slice();
+
+      this.getMachineMove(squares);
+      this.updateHistory(history, squares);
+    }
   }
 
   render() {
@@ -116,6 +140,21 @@ class Game extends React.Component {
 
     return (
       <div className='game'>
+        <div className='player-select'>
+          <form onSubmit={(event) => this.beginGame(event)}>
+            <label>
+              Want to play as 'X' or 'O'?
+              <select
+                value={this.state.user}
+                onChange={(event) => this.changeUser(event)}
+              >
+                <option value='X'>X</option>
+                <option value='O'>O</option>
+              </select>
+            </label>
+            <input type='submit' value='Begin Game' />
+          </form>
+        </div>
         <div className='game-board'>
           <Board
             squares={current.squares}
