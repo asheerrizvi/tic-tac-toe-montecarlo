@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./styles/index.css";
+import "./styles/normalize.css";
+import "./styles/skeleton.css";
 
 import { TTTBoard } from "./board";
 import mcMove from "./monteCarlo";
@@ -104,13 +106,25 @@ class Game extends React.Component {
   changeUser(event) {
     const xIsUser = event.target.value === "X" ? true : false;
     this.setState({ xIsUser: xIsUser });
+    if (xIsUser === "X") {
+      this.setState({ xIsNext: true });
+    } else {
+      this.setState({ xIsNext: false });
+    }
   }
 
-  beginGame(event) {
+  newGame(event) {
     event.preventDefault();
-    this.setState(this.initialState);
+    this.setState((state) => ({
+      ...this.initialState,
+      xIsNext: state.xIsNext,
+      xIsUser: state.xIsUser,
+    }));
     if (!this.state.xIsUser) {
-      const history = this.state.history.slice(0, this.state.stepNumber + 1);
+      const history = this.initialState.history.slice(
+        0,
+        this.state.stepNumber + 1
+      );
       const current = history[history.length - 1];
       const squares = current.squares.slice();
 
@@ -124,7 +138,7 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    let status = "Game Status: In Progress...";
+    let status = "Click 'New Game' to play";
     if (winner) {
       status =
         winner === "Draw"
@@ -146,9 +160,9 @@ class Game extends React.Component {
     return (
       <div className='game'>
         <div className='player-select'>
-          <form onSubmit={(event) => this.beginGame(event)}>
-            <label>
-              Want to play as 'X' or 'O'?
+          <form onSubmit={(event) => this.newGame(event)}>
+            <label style={{ fontWeight: "400" }}>
+              Go as 'X' or 'O'?
               <select
                 className='player-selector'
                 value={this.state.user}
@@ -158,7 +172,7 @@ class Game extends React.Component {
                 <option value='O'>O</option>
               </select>
             </label>
-            <input className='game-button' type='submit' value='Begin Game' />
+            <input className='game-button' type='submit' value='New Game' />
           </form>
         </div>
         <div className='game-board'>
