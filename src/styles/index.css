@@ -1,10 +1,9 @@
 body {
   display: flex;
-  min-height: calc(100vh - 8vh);
+  min-height: 100vh;
   justify-content: center;
   align-items: center;
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
+  font: 14px 'Century Gothic', Futura, sans-serif;
 }
 
 ol,
@@ -18,7 +17,7 @@ button {
 
 .board-row:after {
   clear: both;
-  content: "";
+  content: '';
   display: table;
 }
 
@@ -30,15 +29,15 @@ button {
   background: #fff;
   border: 1px solid #999;
   float: left;
-  font-size: 32px;
+  font-size: 64px;
   font-weight: bold;
-  line-height: 32px;
-  height: 64px;
+  line-height: 64px;
+  height: 128px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 64px;
+  width: 128px;
 }
 
 .square:focus {
@@ -86,9 +85,16 @@ button {
 }
 
 @media (max-width: 768px) {
+  .square {
+    font-size: 32px;
+    line-height: 32px;
+    height: 64px;
+    width: 64px;
+  }
+
   .game {
     flex-direction: column;
-    margin: 2.5rem auto;
+    margin: 3rem auto;
   }
 
   .game-board {
