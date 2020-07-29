@@ -2,8 +2,6 @@
   Provided Code for Tic-Tac-Toe
 */
 
-// import has from 'lodash-es';
-
 export class TTTBoard {
   // Class to represent a Tic-Tac-Toe Board.
   constructor(dim, board = null) {
