@@ -2,7 +2,7 @@
   Provided Code for Tic-Tac-Toe
 */
 
-import has from 'lodash-es';
+// import has from 'lodash-es';
 
 export class TTTBoard {
   // Class to represent a Tic-Tac-Toe Board.
@@ -101,7 +101,7 @@ export class TTTBoard {
   }
 
   clone() {
-    return new TTTBoard(this.dim, has.cloneDeep(this.board));
+    return new TTTBoard(this.dim, [...this.board]);
   }
 }
 

@@ -77,6 +77,7 @@ class Game extends React.Component {
   }
 
   getMachineMove(squares) {
+    if (calculateWinner(squares)) return;
     const machinePlayer = this.state.xIsUser ? 'O' : 'X';
     const tttBoard = new TTTBoard(3, squares);
     const bestMove = mcMove(tttBoard, machinePlayer, 100);
@@ -175,7 +176,11 @@ class Game extends React.Component {
                 <option value='O'>O</option>
               </select>
             </label>
-            <input className='game-button button-primary' type='submit' value='New Game' />
+            <input
+              className='game-button button-primary'
+              type='submit'
+              value='New Game'
+            />
           </form>
         </div>
         <div className='game-board'>
