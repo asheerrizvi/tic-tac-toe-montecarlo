@@ -1,6 +1,6 @@
 {
-  "homepage": "https://asheerrizvi.github.io/tic-tac-toe/",
-  "name": "tic-tac-toe",
+  "homepage": "https://asheerrizvi.github.io/tic-tac-toe-montecarlo",
+  "name": "tic-tac-toe-montecarlo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
