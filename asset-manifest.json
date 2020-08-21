@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/tic-tac-toe/static/css/main.cdf6c684.chunk.css",
-    "main.js": "/tic-tac-toe/static/js/main.f50423ce.chunk.js",
-    "main.js.map": "/tic-tac-toe/static/js/main.f50423ce.chunk.js.map",
-    "runtime-main.js": "/tic-tac-toe/static/js/runtime-main.e9088102.js",
-    "runtime-main.js.map": "/tic-tac-toe/static/js/runtime-main.e9088102.js.map",
-    "static/js/2.4e455df0.chunk.js": "/tic-tac-toe/static/js/2.4e455df0.chunk.js",
-    "static/js/2.4e455df0.chunk.js.map": "/tic-tac-toe/static/js/2.4e455df0.chunk.js.map",
-    "index.html": "/tic-tac-toe/index.html",
-    "precache-manifest.b3c8f31f8b86a9f89f546fd465c7e9e9.js": "/tic-tac-toe/precache-manifest.b3c8f31f8b86a9f89f546fd465c7e9e9.js",
-    "service-worker.js": "/tic-tac-toe/service-worker.js",
-    "static/css/main.cdf6c684.chunk.css.map": "/tic-tac-toe/static/css/main.cdf6c684.chunk.css.map",
-    "static/js/2.4e455df0.chunk.js.LICENSE.txt": "/tic-tac-toe/static/js/2.4e455df0.chunk.js.LICENSE.txt"
+    "main.css": "/tic-tac-toe-montecarlo/static/css/main.cdf6c684.chunk.css",
+    "main.js": "/tic-tac-toe-montecarlo/static/js/main.8a84a1a5.chunk.js",
+    "main.js.map": "/tic-tac-toe-montecarlo/static/js/main.8a84a1a5.chunk.js.map",
+    "runtime-main.js": "/tic-tac-toe-montecarlo/static/js/runtime-main.08f0a7e6.js",
+    "runtime-main.js.map": "/tic-tac-toe-montecarlo/static/js/runtime-main.08f0a7e6.js.map",
+    "static/js/2.89b3d694.chunk.js": "/tic-tac-toe-montecarlo/static/js/2.89b3d694.chunk.js",
+    "static/js/2.89b3d694.chunk.js.map": "/tic-tac-toe-montecarlo/static/js/2.89b3d694.chunk.js.map",
+    "index.html": "/tic-tac-toe-montecarlo/index.html",
+    "precache-manifest.5ede8e64edce7b4853c36ceb4f2af9f7.js": "/tic-tac-toe-montecarlo/precache-manifest.5ede8e64edce7b4853c36ceb4f2af9f7.js",
+    "service-worker.js": "/tic-tac-toe-montecarlo/service-worker.js",
+    "static/css/main.cdf6c684.chunk.css.map": "/tic-tac-toe-montecarlo/static/css/main.cdf6c684.chunk.css.map",
+    "static/js/2.89b3d694.chunk.js.LICENSE.txt": "/tic-tac-toe-montecarlo/static/js/2.89b3d694.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e9088102.js",
-    "static/js/2.4e455df0.chunk.js",
+    "static/js/runtime-main.08f0a7e6.js",
+    "static/js/2.89b3d694.chunk.js",
     "static/css/main.cdf6c684.chunk.css",
-    "static/js/main.f50423ce.chunk.js"
+    "static/js/main.8a84a1a5.chunk.js"
   ]
 }
